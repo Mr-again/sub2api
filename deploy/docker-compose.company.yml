@@ -1,0 +1,15 @@
+services:
+  sub2api:
+    image: ${SUB2API_IMAGE:?Set the image built by the fork}
+    pull_policy: never
+    mem_limit: 384m
+    environment:
+      GOMEMLIMIT: 240MiB
+      GOGC: "70"
+      GATEWAY_CODEX_IMAGE_GENERATION_BRIDGE_ENABLED: "true"
+      GATEWAY_LOG_UPSTREAM_ERROR_BODY: "false"
+  postgres:
+    mem_limit: 192m
+    command: [postgres, -c, shared_buffers=32MB, -c, max_connections=30, -c, work_mem=2MB]
+  redis:
+    mem_limit: 96m
